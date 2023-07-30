@@ -9,6 +9,7 @@ const addToProduct=() =>{
 
     console.log(product,quantity);
     displayProduct(product,quantity);
+    savedProductToLocalStorage(product, quantity);
 }
 
 const displayProduct = (product, quantity) =>{
@@ -16,4 +17,22 @@ const displayProduct = (product, quantity) =>{
         const li = document.createElement('li');
         li.innerText = `${product}:${quantity}`;
         ul.appendChild(li);
+}
+
+// data saved product to localStorage
+const getShoppingCart = () =>{
+    let cart = {};
+    const storedCart = localStorage.getItem('cart');
+    if(storedCart){
+            cart = JSON.parse(storedCart);
+    }
+    return cart;
+}
+
+const savedProductToLocalStorage = (product, quantity) =>{
+    const cart = getShoppingCart();
+    cart[product] = quantity;
+    console.log(cart);
+    const cartStringified = JSON.stringify(cart);
+    localStorage.setItem('cart', cartStringified);
 }
