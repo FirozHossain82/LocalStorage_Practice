@@ -20,7 +20,7 @@ const displayProduct = (product, quantity) =>{
 }
 
 // data saved product to localStorage
-const getShoppingCart = () =>{
+const getStoredShoppingCart = () =>{
     let cart = {};
     const storedCart = localStorage.getItem('cart');
     if(storedCart){
@@ -30,9 +30,20 @@ const getShoppingCart = () =>{
 }
 
 const savedProductToLocalStorage = (product, quantity) =>{
-    const cart = getShoppingCart();
+    const cart = getStoredShoppingCart();
     cart[product] = quantity;
     console.log(cart);
     const cartStringified = JSON.stringify(cart);
     localStorage.setItem('cart', cartStringified);
 }
+
+const displayProductsFromLocalStorage = () =>{
+    const savedCart = getStoredShoppingCart();
+    console.log(savedCart);
+    for(const product in savedCart){
+        const quantity = savedCart[product];
+        console.log(product, quantity);
+        displayProduct(product,quantity);
+    }
+}
+displayProductsFromLocalStorage();
